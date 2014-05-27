@@ -45,7 +45,12 @@ cd ${BUILDPATH}/po/
 
 echo "Changing the copied ${localization} files to GNU gettext style..."
 
-sed -i '1s/<?php /# Newscoop translation file/g' ${localization}/*.php
+sed -i 's/<?php /msgid ""\
+msgstr ""\
+"Project-Id-Version: Newscoop\\n"\
+"Content-Type: text\/plain; charset=UTF-8\\n"\
+"Content-Transfer-Encoding: 8bit\\n"\
+/' ${localization}/*.php
 sed -i 's/regGS(/msgid /g' ${localization}/*.php
 sed -i 's/", "/"\nmsgstr "/g' ${localization}/*.php
 sed -i 's/);/\n/g' ${localization}/*.php
