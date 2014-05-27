@@ -6,10 +6,10 @@
 BUILDPATH=/tmp
 
 # Set the path to the Newscoop localization files
-GITPATH=newscoop/admin-files/lang/
+GITPATH=../newscoop/newscoop/admin-files/lang/
 
 # Set the path to the Newscoop plugins
-PLUGINPATH=plugins/
+PLUGINPATH=../newscoop/plugins/
 
 # Set the locales you want to convert
 LOCALES="ar be bn cs da de de_AT el en en_GB es fr he hr hu it ka ko ku nl pl pt pt_BR ro ru sh sq sr sv uk zh zh_TW"
@@ -45,7 +45,7 @@ cd ${BUILDPATH}/po/
 
 echo "Changing the copied ${localization} files to GNU gettext style..."
 
-sed -i 's/<?php /msgid ""\
+sed -i '1s/<?php /msgid ""\
 msgstr ""\
 "Project-Id-Version: Newscoop\\n"\
 "Content-Type: text\/plain; charset=UTF-8\\n"\
