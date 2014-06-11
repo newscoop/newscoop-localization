@@ -21,7 +21,12 @@ if [ -d ${localization} ]; then
 
   echo "Changing the ${localization} files to Newscoop style..."
 
-  sed -i 's/# Newscoop translation file/<?php /g' ${localization}/*.po
+  sed -i '1s/msgid ""/<?php /' ${localization}/*.po
+  sed -i '2s/msgstr ""//' ${localization}/*.po
+  sed -i 's/"Project-Id-Version: Newscoop\\n\"//' ${localization}/*.po
+  sed -i 's/"Content-Type: text\/plain; charset=UTF-8\\n"//' ${localization}/*.po
+  sed -i 's/"Content-Transfer-Encoding: 8bit\\n"//' ${localization}/*.po
+
   sed -i ':q;N;s/\n/ /g;t q' ${localization}/*.po
   sed -i 's/ msgid "/\nregGS("/g' ${localization}/*.po
   sed -i 's/ msgstr "/, "/g' ${localization}/*.po
