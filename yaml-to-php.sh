@@ -9,28 +9,25 @@ BUILDPATH=/tmp
 GITPATH=../newscoop/newscoop/src/Newscoop/NewscoopBundle/Resources/translations/
 
 # Set the locales you want to convert
-LOCALES="ar be bn cs da de de_AT el en en_GB es fr he hr hu it ka ko ku nl pl pt pt_BR ro ru sh sq sr sv uk zh zh_TW"
+LOCALES="ar be bn cs da de de_AT el en en_GB es fr he hr hu it ka ko ku nl pl pt pt_BR ro ru sq sr sr@latin sv uk zh zh_TW"
 
 echo "Cleaning up any previous builds..."
 
 rm -rf ${BUILDPATH}/yml/
 
-echo "Creating the temporary build directory..."
-
-mkdir -p ${BUILDPATH}/yml/
-
 echo "Copying the files to the temporary directory..."
 
 for localization in ${LOCALES}; do
- cp -r ${GITPATH}*${localization}.yml ${BUILDPATH}/yml/
+ mkdir -p ${BUILDPATH}/yml/${localization}
+ cp -r ${GITPATH}*${localization}.yml ${BUILDPATH}/yml/${localization}/
 done
-
-cd ${BUILDPATH}/yml/
 
 # Begin function that converts the files
 
 function yaml2php {
   localization=$1
+
+cd ${BUILDPATH}/yml/${localization}/
 
 # Check that the target files actually exist
 
@@ -99,6 +96,10 @@ fi
 for localization in ${LOCALES}; do
  yaml2php ${localization}
 done
+
+# Workaround for Serbian Latin code change
+
+mv ${BUILDPATH}/yml/sr@latin ${BUILDPATH}/yml/sh
 
 echo "Size of the output files is:"
 
