@@ -32,12 +32,16 @@ cd ${BUILDPATH}/po/
 
 echo "Changing the file to GNU gettext style..."
 
+# insert an additional hash and space at the beginning of each line
 sed -i 's/^/# /' ${LANGUAGE}.tpl
 
+# insert a linebreak, msgstr and linebreak after each line ending with a double quote
 sed -i 's/\(["]\)\s*$/"\nmsgstr ""\n/' ${LANGUAGE}.tpl
 
+# replace equals signs with linebreak, msgid
 sed -i 's/ = /\nmsgid /' ${LANGUAGE}.tpl
 
+# insert a gettext header at the top of the file
 sed -i '1s/# ###/msgid ""\
 msgstr ""\
 "Project-Id-Version: Newscoop\\n"\
