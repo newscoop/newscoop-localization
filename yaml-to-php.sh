@@ -9,7 +9,7 @@ BUILDPATH=/tmp
 GITPATH=../newscoop/newscoop/src/Newscoop/NewscoopBundle/Resources/translations/
 
 # Set the locales you want to convert
-LOCALES="ar be bn cs da de de_AT el en en_GB es fr he hr hu it ka ko ku nl pl pt pt_BR ro ru sq sr sr@latin sv uk zh zh_TW"
+LOCALES="ar az be bn cs da de de_AT el en en_GB es fr he hr hu hy_AM it ka ko ku nb_NO nl pl pt pt_BR ro ru sq sr sr@latin sv tr uk zh zh_TW"
 
 echo "Cleaning up any previous builds..."
 
