@@ -181,20 +181,23 @@ if [ -n "$FILESPRESENT" ]; then
   sed -i "s/            lifetime: /'Session lifetime in seconds. Max: 86400 (24 hours). Min: 0 (until the browser is closed).': /" system_pref.${localization}.yml
   sed -i "s/            smartyuseprotocol: /'If enabled, the Smarty function url will create URLs with a protocol. By default this option is disabled to create protocol relative URLs. It is possble to override this behaviour with the useprotocol parameter for the Smarty function and specify a boolean for the desired behaviour.': /" system_pref.${localization}.yml
 
+  # replace the quoted middle colon with a double quoted comma
+  sed -i 's/\x27: \x27/\", \"/' *.${localization}.yml
+
+  # replace the left quoted middle colon with a double quoted comma
+  sed -i 's/\x27: /\", \"/' *.${localization}.yml
+
+  # replace the right quoted middle colon with a double quoted comma
+  sed -i 's/: \x27/\", \"/' *.${localization}.yml
+
+  # replace remaining unquoted colons if the line starts with an alphanumeric character or left bracket (less risky!)
+  sed -i '/^[a-zA-Z0-9(]/s/: /\", \"/' *.${localization}.yml
+
   # remove the leading single quote
   sed -i 's/^\x27//' *.${localization}.yml
 
   # add php line beginning
   sed -i 's/^/regGS(\"/' *.${localization}.yml
-
-  # replace the quoted middle colon with a comma
-  sed -i 's/\x27: \x27/\", \"/' *.${localization}.yml
-
-  # replace the left quoted middle colon with a quoted comma
-  sed -i 's/\x27: /\", \"/' *.${localization}.yml
-
-  # replace remaining unquoted colons with a quoted comma (risky!)
-  sed -i 's/: /\", \"/' *.${localization}.yml
 
   # remove the trailing single quote
   sed -i 's/\x27$//' *.${localization}.yml
