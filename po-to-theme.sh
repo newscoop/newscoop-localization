@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Script to generate a Newscoop theme conf file from a .po file.
+# Script to generate Newscoop theme conf files from .po files.
 
 # Set the name of the theme
 THEME=Broadcaster
@@ -12,47 +12,52 @@ BUILDPATH=/tmp
 GITPATH=../theme-${THEME}/_conf/
 
 # Set the language which you want to convert
-LANGUAGE=fr
+LOCALES="ar da hr hu it"
 
 # Convert the file
 
 cd ${BUILDPATH}/po/
 
-echo "Changing the file to Smarty style..."
+for LANGUAGE in ${LOCALES}; do
 
-# strip lines containing msgid
-sed -i '/msgid/d' *_${LANGUAGE}.po
+ echo "Changing the ${LANGUAGE} file to Smarty style..."
 
-# strip lines beginning with double quotes
-sed -i '/^"/d' *_${LANGUAGE}.po
+ # strip lines containing msgid
+ sed -i '/msgid/d' *_${LANGUAGE}.po
 
-# remove the first leading hashes
-sed -i 's/^# //' *_${LANGUAGE}.po
+ # strip lines beginning with double quotes
+ sed -i '/^"/d' *_${LANGUAGE}.po
 
-# replace msgstr with equals sign
-sed -i 's/msgstr/ =/' *_${LANGUAGE}.po
+ # remove the first leading hashes
+ sed -i 's/^# //' *_${LANGUAGE}.po
 
-# strip newlines before the equals sign
-sed -i ':a;N;$!ba;s/\n =/ =/g' *_${LANGUAGE}.po
+ # replace msgstr with equals sign
+ sed -i 's/msgstr/ =/' *_${LANGUAGE}.po
 
-# delete empty lines
-sed -i '/^$/d' *_${LANGUAGE}.po
+ # strip newlines before the equals sign
+ sed -i ':a;N;$!ba;s/\n =/ =/g' *_${LANGUAGE}.po
 
-# put a newline before each stanza
-sed -i 's/# /\n# /' *_${LANGUAGE}.po
+ # delete empty lines
+ sed -i '/^$/d' *_${LANGUAGE}.po
 
-# put a newline before each plugin section
-sed -i 's/\[/\n\[/' *_${LANGUAGE}.po
+ # put a newline before each stanza
+ sed -i 's/# /\n# /' *_${LANGUAGE}.po
 
-# strip the first two lines
-sed -i '1,2d' *_${LANGUAGE}.po
+ # put a newline before each plugin section
+ sed -i 's/\[/\n\[/' *_${LANGUAGE}.po
 
-# update the header
-sed -i "1s/# # en/### ${LANGUAGE}/" *_${LANGUAGE}.po
+ # strip the first two lines
+ sed -i '1,2d' *_${LANGUAGE}.po
 
-echo "Renaming the file to have a Smarty extension..."
+ # update the header
+ sed -i "s/# # en/### ${LANGUAGE}/" *_${LANGUAGE}.po
+ sed -i "s/# # English/### ${LANGUAGE}/" *_${LANGUAGE}.po
 
-mv *_${LANGUAGE}.po strings-${LANGUAGE}.tpl
+ echo "Renaming the ${LANGUAGE} file to have a Smarty extension..."
+
+ mv *_${LANGUAGE}.po strings-${LANGUAGE}.tpl
+
+done
 
 echo "Size of the output file is:"
 
