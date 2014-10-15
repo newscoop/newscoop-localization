@@ -213,6 +213,8 @@ if [ -n "$FILESPRESENT" ]; then
 
   # strip unused lines
 
+  sed -i '188,207d' articles.${localization}.yml
+
   sed -i '65,107d' api.${localization}.yml
 
   sed -i '189,223d' users.${localization}.yml
