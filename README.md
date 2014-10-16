@@ -3,9 +3,9 @@ newscoop-localization
 
 Three sets of Bash scripts for making Newscoop localization easier...
 
-1. A pair of scripts generate-po-files.sh and generate-php-files.sh which can convert Newscoop's legacy PHP translation format into GNU gettext .po files and back. 
+1. A pair of scripts generate-po-files.sh and generate-php-files.sh which can convert Newscoop 4.2's legacy PHP translation format into GNU gettext .po files and back. 
 
-2. A pair of scripts theme-to-po.sh and po-to-theme.sh for converting Smarty variables in Newscoop theme conf files to gettext .po files and back.
+2. Three scripts theme-to-po.sh, localized-theme-to-po.sh and po-to-theme.sh for converting Smarty variables in Newscoop 4.2 theme conf files to gettext .po files and back.
 
 3. A script yaml-to-php.sh for converting Newscoop 4.3 YAML files to Newscoop legacy format. This latter script is useful for backporting current .yml files in the master branch on GitHub to Newscoop 4.2.x production servers.
 
