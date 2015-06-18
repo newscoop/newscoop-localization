@@ -18,8 +18,8 @@ printf "\nExamining $ymlfile...\n"
 while read line
 do
 
-# strip the single quotes, triple dashes, colon and everything following colons
-strippedline=$(echo $line|sed s/\'//g|sed s/---//|sed s/:.*//)
+# strip the single quotes, double or triple dashes, colon and everything following colons
+strippedline=$(echo $line|sed s/\'//g|sed s/--//g|sed s/---//g|sed s/:.*//)
 
 # grep recursively in the sources for each stripped line from the yml
 grep -rq --exclude=*.yml "$strippedline" $sourcefiles
@@ -39,7 +39,7 @@ done
 
 # generate a report
 printf "\nGenerating a report of strings missing from source...\n"
-printf "\nDon't forget to check for false results!\n"
+printf "\nDon't forget to check for false results!\n\n"
 
  while read line
  do
