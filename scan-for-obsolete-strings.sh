@@ -3,7 +3,7 @@
 # set variables for Newscoop source and translation files
 
 sourcefiles=~/64studio/git/newscoop/
-ymlfiles=${sourcefiles}/newscoop/src/Newscoop/NewscoopBundle/Resources/translations/*.en.yml
+ymlfiles=${sourcefiles}newscoop/src/Newscoop/NewscoopBundle/Resources/translations/*.en.yml
 
 # delete old output files
 rm matchnotfoundfile matchnotfoundreport
@@ -12,30 +12,23 @@ rm matchnotfoundfile matchnotfoundreport
 for ymlfile in $ymlfiles
 do
 
-printf "\n\nExamining $ymlfile...\n"
+printf "\nExamining $ymlfile...\n"
 
 # read in each line of the file
 while read line
 do
-printf "Line is: $line\n"
 
-# strip the colon and everything following
-strippedline=$(echo $line|sed 's/:.*//')
-printf "Stripped line is: $strippedline\n"
+# strip the single quotes, triple dashes, colon and everything following colons
+strippedline=$(echo $line|sed s/\'//g|sed s/---//|sed s/:.*//)
 
 # grep recursively in the sources for each stripped line from the yml
-grep -rl --exclude=*.yml "$strippedline" $sourcefiles
+grep -rq --exclude=*.yml "$strippedline" $sourcefiles
 
 # indicate if a stripped line was found
-if [ $? -eq 0 ]; then
-    printf "Match found for $strippedline\n\n "
+if [ $? -eq 1 ]; then
 
-    else
-
-    # indicate if a stripped line was not found
-    printf "***Match not found!*** "
+    printf "\nNot found: "
     printf "$strippedline\n" | tee -a matchnotfoundfile
-    printf "\n"
 
 fi
 
@@ -54,9 +47,6 @@ printf "\nDon't forget to check for false results!\n"
  grep -r --include=*.en.yml --exclude=*.yml "$line" $sourcefiles | tee -a matchnotfoundreport
 
  done < matchnotfoundfile
-
- # filter false positives
- sed -i "/\\$/d" matchnotfoundreport
 
 # close the whole script
 exit 0
