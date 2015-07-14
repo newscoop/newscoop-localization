@@ -1,13 +1,15 @@
 newscoop-localization
 =====================
 
-Three sets of Bash scripts for making Newscoop localization easier...
+Four sets of Bash scripts for making Newscoop localization easier...
 
 1. A pair of scripts generate-po-files.sh and generate-php-files.sh which can convert Newscoop 4.2's legacy PHP translation format into GNU gettext .po files and back. 
 
 2. Three scripts theme-to-po.sh, localized-theme-to-po.sh and po-to-theme.sh for converting Smarty variables in Newscoop 4.2 theme conf files to gettext .po files and back.
 
 3. A script yaml-to-php.sh for converting Newscoop 4.3 YAML files to Newscoop legacy format. This latter script is useful for backporting current .yml files in the master branch on GitHub to Newscoop 4.2.x production servers.
+
+4. Two scripts scan-for-obsolete-strings.sh and scan-for-obsolete-images.sh which can be used to clean up your source tree. Less stuff in git means less work for your translators.
 
 *Usage*
 
@@ -40,3 +42,7 @@ If using generate-po-files.sh to convert files under the Newscoop/newscoop/admin
 to sync with the latest strings available. 
 
 The generate-php-files.sh script is for Newscoop 4.2.x, and is meant for use on individual .po files as converted by generate-po-files.sh. It will not work for the .po file that Transifex offers as 'download for use'. This is because Transifex concatenates all the different translation files into a single .po file on export, which is not what Newscoop needs.
+
+*Scan for obsolete strings and images*
+
+Set GITPATH and let the scripts run. Reports will be generated in your working directory. Please note that scanning for obsolete strings is not totally reliable, due to differences such as double spaces and apostrophes. Therefore English source strings should be checked manually before removal.

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # set path to Newscoop source files
-sourcefiles=~/64studio/git/newscoop/
+GITPATH=~/64studio/git/newscoop/
 
 # delete old output file
 rm imagesnotfoundfile
 
 # loop through the image files
-for imgpath in $( find $sourcefiles -type f \( -name "*.png" -or -name "*.jpg" -or -name "*.gif" -or -name "*.pdf" \) )
+for imgpath in $( find $GITPATH -type f \( -name "*.png" -or -name "*.jpg" -or -name "*.gif" -or -name "*.pdf" \) )
 do
 
 printf "\nExamining $imgpath...\n"
@@ -16,7 +16,7 @@ printf "\nExamining $imgpath...\n"
 imgfile=$( echo $imgpath | xargs -n 1 basename )
 
 # grep recursively in the sources for each image filename, but skip git directory and yml files
-grep -rl --exclude-dir=.git --exclude=*.yml $imgfile $sourcefiles
+grep -rl --exclude-dir=.git --exclude=*.yml $imgfile $GITPATH
 
 # indicate if an image filename was found
 
