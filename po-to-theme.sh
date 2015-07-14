@@ -9,10 +9,10 @@ THEME=Broadcaster
 BUILDPATH=/tmp
 
 # Set the path to the Newscoop theme conf files
-GITPATH=../theme-${THEME}/_conf/
+GITPATH=~/64studio/git/theme-${THEME}/_conf/
 
 # Set the language which you want to convert
-LOCALES="ar az da hr hu hy_AM it ka pt ru zh"
+LOCALES="ar az da fr hr hu hy_AM it ka pt ru zh"
 
 # Convert the file
 
@@ -55,10 +55,14 @@ for LANGUAGE in ${LOCALES}; do
 
  echo "Renaming the ${LANGUAGE} file to have a Smarty extension..."
 
- mv *_${LANGUAGE}.po ${GITPATH}strings-${LANGUAGE}.tpl
+ mv *_${LANGUAGE}.po strings-${LANGUAGE}.tpl
+
+ echo "Size of the output file is:"
+
+ du -h strings-${LANGUAGE}.tpl
 
 done
 
-echo "Size of the output file is:"
+ mv *.tpl ${GITPATH}
 
-du -h ${BUILDPATH}/po/*.tpl
+exit 0
